@@ -1,8 +1,10 @@
 package com.example.spit_hackathon_ecoquest.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -10,18 +12,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.spit_hackathon_ecoquest.Models.Events;
+import com.example.spit_hackathon_ecoquest.Models.Task;
+import com.example.spit_hackathon_ecoquest.Modules.OnPressUI;
 import com.example.spit_hackathon_ecoquest.Modules.SingleTapClick;
 import com.example.spit_hackathon_ecoquest.R;
 
 import java.util.List;
 
-public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
+public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     Context context;
-    List<Events> testModelList;
+    List<Task> testModelList;
 
-    public EventAdapter(Context context, List<Events> testModelList) {
+    public TaskAdapter(Context context, List<Task> testModelList) {
         this.context = context;
         this.testModelList = testModelList;
     }
@@ -29,7 +32,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.sample_events, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.sample_task, parent, false);
 
         return new ViewHolder(view);
     }
@@ -39,13 +42,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         if (testModelList != null && testModelList.size() != 0) {
             GestureDetector gestureDetector = new GestureDetector(context, new SingleTapClick());
 
-            Events events = testModelList.get(position);
+            Task task = testModelList.get(position);
 
-            holder.title.setText(events.getTitle());
-            holder.time.setText(events.getTime());
-            holder.location.setText(events.getLocation());
-            holder.green_points.setText(events.getGreen_points());
-            holder.date.setText(events.getDate());
+            holder.task.setText(task.getTask());
+            holder.weekDay.setText(task.getDay());
+            holder.greenPoints.setText(task.getGreenPoints());
+
+
 
 //            holder.itemView.setOnTouchListener(new View.OnTouchListener() {
 //                @SuppressLint("ClickableViewAccessibility")
@@ -90,16 +93,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title, location, green_points, time, date;
+        TextView weekDay, task, greenPoints;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            title = itemView.findViewById(R.id.title);
-            location = itemView.findViewById(R.id.location);
-            time = itemView.findViewById(R.id.time);
-            green_points = itemView.findViewById(R.id.green_points);
-            date = itemView.findViewById(R.id.date);
+            weekDay = itemView.findViewById(R.id.dayOfTheWeek);
+            task = itemView.findViewById(R.id.task);
+            greenPoints = itemView.findViewById(R.id.green_points);
         }
     }
 }
