@@ -33,5 +33,15 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="task">Task</string>
     <string name="events">Events</string>
+    <string name="dry_waste">Dry Waste</string>
+    <string name="wet_waste">Wet waste</string>
+    <string name="others">Others</string>
+    <string name="every_24_hours">*Every 24 hours</string>
+    <string name="clean_my_area">Clean my area</string>
+    <string name="innovate">Innovate</string>
+    <string name="daily_tasks">Daily tasks</string>
+    <string name="enter_harabazar">Hara Bazar</string>
+    <string name="update_your_progress">Update your Progress</string>
+    <string name="go">GO!</string>
 
 </resources>

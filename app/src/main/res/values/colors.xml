@@ -15,6 +15,11 @@
     <color name="light_green">#39e75f</color>
     <color name="grey">#423F3F</color>
     <color name="red">#FF0000</color>
+    <color name="bg_green">#E5F6DF</color>
+    <color name="blue">#1167B1</color>
+    <color name="orange">#ff4500</color>
+    <color name="light_grey">#D3D3D3</color>
+    <color name="light_green_card">#abf7b1</color>
 
 
 </resources>

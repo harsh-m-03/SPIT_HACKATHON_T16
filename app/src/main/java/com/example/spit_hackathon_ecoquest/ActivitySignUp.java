@@ -55,6 +55,8 @@ public class ActivitySignUp extends AppCompatActivity {
             }
         });
 
+
+
         binding.login.setOnTouchListener(new View.OnTouchListener() {
             @SuppressLint("ClickableViewAccessibility")
             @Override
