@@ -21,23 +21,6 @@ FirebaseAuth firebaseAuth;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-firebaseAuth=FirebaseAuth.getInstance();
-
-        firebaseAuth.createUserWithEmailAndPassword("harshmange03@gmail.com", "password")
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(MainActivity.this, "Done", Toast.LENGTH_SHORT).show();
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
 
     }
 }
