@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -17,16 +16,14 @@ import androidx.fragment.app.Fragment;
 
 import com.example.spit_hackathon_ecoquest.BottomSheets.OptionsForCleanArea;
 import com.example.spit_hackathon_ecoquest.BottomSheets.UpdateProgressBottomSheet;
+import com.example.spit_hackathon_ecoquest.HaraBazarActivity;
 import com.example.spit_hackathon_ecoquest.InnovateActivity;
 import com.example.spit_hackathon_ecoquest.Models.Users;
 import com.example.spit_hackathon_ecoquest.Models.Waste;
 import com.example.spit_hackathon_ecoquest.Modules.FcmNotificationsSender;
-import com.example.spit_hackathon_ecoquest.Modules.FirebaseMessagingService;
 import com.example.spit_hackathon_ecoquest.Modules.OnPressUI;
 import com.example.spit_hackathon_ecoquest.Modules.SingleTapClick;
 import com.example.spit_hackathon_ecoquest.databinding.FragmentProfileBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -140,7 +137,8 @@ public class ProfileFragment extends Fragment {
                 }
                 return true;
             }
-        });  binding.cleanMyArea.setOnTouchListener(new View.OnTouchListener() {
+        });
+        binding.cleanMyArea.setOnTouchListener(new View.OnTouchListener() {
             @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -148,6 +146,18 @@ public class ProfileFragment extends Fragment {
                 if (gestureDetector.onTouchEvent(motionEvent)) {
                     OptionsForCleanArea frag = new OptionsForCleanArea();
                     frag.show(getActivity().getSupportFragmentManager(), frag.getTag());
+                }
+                return true;
+            }
+        });
+        binding.bazar.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                new OnPressUI().onPressUi(view, motionEvent);
+                if (gestureDetector.onTouchEvent(motionEvent)) {
+                    Intent intent = new Intent(getContext(), HaraBazarActivity.class);
+                    startActivity(intent);
                 }
                 return true;
             }
@@ -162,7 +172,6 @@ public class ProfileFragment extends Fragment {
                 return true;
             }
         });
-
 
         database.getReference().child("Test/Waste").child(date).child(Objects.requireNonNull(auth.getUid())).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
