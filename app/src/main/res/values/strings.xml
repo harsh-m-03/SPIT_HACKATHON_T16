@@ -55,5 +55,6 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="submit">Submit</string>
     <string name="upload_image">Upload Image</string>
+    <string name="share">Share</string>
 
 </resources>

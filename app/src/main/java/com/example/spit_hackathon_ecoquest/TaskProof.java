@@ -194,7 +194,7 @@ public class TaskProof extends AppCompatActivity {
                             }
                         });
                     } else
-                        Toast.makeText(TaskProof.this, "Nahi", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TaskProof.this, "Image not found", Toast.LENGTH_SHORT).show();
 
                 }
                 return true;

@@ -2,8 +2,10 @@ package com.example.spit_hackathon_ecoquest.Fragments;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -12,22 +14,25 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.spit_hackathon_ecoquest.BottomSheets.UpdateProgressBottomSheet;
+import com.example.spit_hackathon_ecoquest.InnovateActivity;
 import com.example.spit_hackathon_ecoquest.Models.Users;
 import com.example.spit_hackathon_ecoquest.Models.Waste;
+import com.example.spit_hackathon_ecoquest.Modules.FcmNotificationsSender;
+import com.example.spit_hackathon_ecoquest.Modules.FirebaseMessagingService;
 import com.example.spit_hackathon_ecoquest.Modules.OnPressUI;
 import com.example.spit_hackathon_ecoquest.Modules.SingleTapClick;
-import com.example.spit_hackathon_ecoquest.R;
 import com.example.spit_hackathon_ecoquest.databinding.FragmentProfileBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -84,6 +89,18 @@ public class ProfileFragment extends Fragment {
                 return true;
             }
         });
+        binding.innovate.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                new OnPressUI().onPressUi(view, motionEvent);
+                if (gestureDetector.onTouchEvent(motionEvent)) {
+                    Intent intent = new Intent(getContext(), InnovateActivity.class);
+                    startActivity(intent);
+                }
+                return true;
+            }
+        });
         binding.othersText.setOnTouchListener(new View.OnTouchListener() {
             @SuppressLint("ClickableViewAccessibility")
             @Override
@@ -118,13 +135,18 @@ public class ProfileFragment extends Fragment {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 new OnPressUI().onPressUi(view, motionEvent);
                 if (gestureDetector.onTouchEvent(motionEvent)) {
-//                    TaskFragment fragment = new TaskFragment();
-//                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                    fragmentTransaction.replace(R.id.layout, fragment);
-//                    fragmentTransaction.addToBackStack(null);
-//                    fragmentTransaction.commit();
+
                 }
+                return true;
+            }
+        });
+        binding.notifications.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                FirebaseMessaging.getInstance().subscribeToTopic("all");
+                FcmNotificationsSender notificationsSender = new FcmNotificationsSender("/topics/all", "Congratulations", "Winner for this Week is ", getActivity().getApplicationContext(), getActivity());
+                notificationsSender.SendNotifications();
+
                 return true;
             }
         });

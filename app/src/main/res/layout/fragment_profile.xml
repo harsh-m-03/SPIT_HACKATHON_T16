@@ -26,6 +26,7 @@
                 android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:visibility="gone"
                 android:src="@drawable/notification" />
 
             <ImageView
