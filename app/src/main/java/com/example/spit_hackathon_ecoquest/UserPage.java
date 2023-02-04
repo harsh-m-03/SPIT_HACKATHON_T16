@@ -3,10 +3,12 @@ package com.example.spit_hackathon_ecoquest;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.view.WindowManager;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -15,6 +17,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spit_hackathon_ecoquest.databinding.ActivityUserPageBinding;
+
+import java.util.Objects;
 
 public class UserPage extends AppCompatActivity {
 
@@ -28,14 +32,19 @@ public class UserPage extends AppCompatActivity {
         binding = ActivityUserPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setSupportActionBar(binding.appBarUserPage.toolbar);
+        Objects.requireNonNull(getSupportActionBar()).hide();
+
         binding.appBarUserPage.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if (!binding.drawerLayout.isDrawerOpen(GravityCompat.START))
+                    binding.drawerLayout.openDrawer(GravityCompat.START);
+                else binding.drawerLayout.closeDrawer(GravityCompat.END);
             }
         });
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
