@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import com.example.spit_hackathon_ecoquest.Modules.OnPressUI;
 import com.example.spit_hackathon_ecoquest.Modules.SingleTapClick;
 import com.example.spit_hackathon_ecoquest.databinding.FragmentOptionsForCleanAreaBinding;
-import com.example.spit_hackathon_ecoquest.databinding.FragmentUpdateProgressBottomSheetBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
@@ -41,6 +40,19 @@ public class OptionsForCleanArea extends BottomSheetDialogFragment {
                 new OnPressUI().onPressUi(view, motionEvent);
                 if (gestureDetector.onTouchEvent(motionEvent)) {
                     OrganizeAnEventBottomSheet frag = new OrganizeAnEventBottomSheet();
+                    frag.show(getActivity().getSupportFragmentManager(), frag.getTag());
+                    OptionsForCleanArea.this.dismiss();
+                }
+                return true;
+            }
+        });
+        binding.complaint.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                new OnPressUI().onPressUi(view, motionEvent);
+                if (gestureDetector.onTouchEvent(motionEvent)) {
+                    FileAComplaintBottomSheet frag = new FileAComplaintBottomSheet();
                     frag.show(getActivity().getSupportFragmentManager(), frag.getTag());
                     OptionsForCleanArea.this.dismiss();
                 }
