@@ -1,17 +1,26 @@
 package com.example.spit_hackathon_ecoquest.Models;
 
 public class Users {
-    String fName, lName, phoneNumber, email, password;
+    String fName, lName, phoneNumber, email, password,uid;
 
-    public Users(String fName, String lName, String phoneNumber, String email, String password) {
+    public Users(String fName, String lName, String phoneNumber, String email, String password, String uid) {
         this.fName = fName;
         this.lName = lName;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.password = password;
+        this.uid=uid;
     }
 
     public Users() {
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getfName() {

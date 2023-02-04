@@ -1,6 +1,7 @@
 package com.example.spit_hackathon_ecoquest;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ public class ActivitySignIn extends AppCompatActivity {
     ActivitySignInBinding binding;
     GestureDetector gestureDetector;
     String emptyFieldError = "Required";
+    ProgressDialog progressDialog;
     String dbType = "Test";
     FirebaseDatabase firebaseDatabase;
     FirebaseAuth auth;
@@ -51,12 +53,12 @@ public class ActivitySignIn extends AppCompatActivity {
                     else if (binding.pass.getText().toString().isEmpty())
                         binding.pass.setError(emptyFieldError);
                     else {
-                        binding.loading.setVisibility(View.VISIBLE);
+                        progressDialog.show();
                         auth.signInWithEmailAndPassword(binding.email.getText().toString(),
                                 binding.pass.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                binding.loading.setVisibility(View.GONE);
+                                progressDialog.show();
                                 if (task.isSuccessful()) {
                                     Toast.makeText(ActivitySignIn.this, "Login successful", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(ActivitySignIn.this, UserPage.class);
@@ -88,6 +90,9 @@ public class ActivitySignIn extends AppCompatActivity {
         gestureDetector = new GestureDetector(ActivitySignIn.this, new SingleTapClick());
 
         auth = FirebaseAuth.getInstance();
+
+        progressDialog = new ProgressDialog(ActivitySignIn.this);
+        progressDialog.setMessage("Loading");
 
         Objects.requireNonNull(getSupportActionBar()).hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);

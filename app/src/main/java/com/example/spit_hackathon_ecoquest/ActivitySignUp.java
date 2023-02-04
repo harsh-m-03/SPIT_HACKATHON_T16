@@ -1,6 +1,7 @@
 package com.example.spit_hackathon_ecoquest;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import java.util.Objects;
 
 public class ActivitySignUp extends AppCompatActivity {
     ActivitySignUpBinding binding;
+    ProgressDialog progressDialog;
     GestureDetector gestureDetector;
     String emptyFieldError = "Required";
     String dbType = "Test";
@@ -70,12 +72,12 @@ public class ActivitySignUp extends AppCompatActivity {
                     else if (binding.pass.getText().toString().isEmpty())
                         binding.pass.setError(emptyFieldError);
                     else {
-                        binding.loading.setVisibility(View.VISIBLE);
+                        progressDialog.show();
                         auth.createUserWithEmailAndPassword(binding.email.getText().toString(),
                                 binding.pass.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                binding.loading.setVisibility(View.GONE);
+                                progressDialog.dismiss();
                                 if (task.isSuccessful()) {
                                     Users users = new Users();
                                     users.setfName(binding.fName.getText().toString());
@@ -84,12 +86,12 @@ public class ActivitySignUp extends AppCompatActivity {
                                     users.setEmail(binding.email.getText().toString());
                                     users.setPassword(binding.pass.getText().toString());
 
-                                    binding.loading.setVisibility(View.VISIBLE);
+                                    progressDialog.show();
                                     firebaseDatabase.getReference().child(dbType + "/Users/").child(auth.getUid()).setValue(users).
                                             addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
-                                                    binding.loading.setVisibility(View.GONE);
+                                                    progressDialog.dismiss();
                                                     if (task.isSuccessful()) {
                                                         Toast.makeText(ActivitySignUp.this, "Login successful", Toast.LENGTH_SHORT).show();
                                                         Intent intent = new Intent(ActivitySignUp.this, UserPage.class);
@@ -123,6 +125,9 @@ public class ActivitySignUp extends AppCompatActivity {
     private void Initialization() {
         binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        progressDialog = new ProgressDialog(ActivitySignUp.this);
+        progressDialog.setMessage("Loading");
 
         firebaseDatabase = FirebaseDatabase.getInstance();
 

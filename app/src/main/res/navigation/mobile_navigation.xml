@@ -26,4 +26,9 @@
         android:name="com.example.spit_hackathon_ecoquest.Fragments.SettingsFragment"
         android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/events"
+        android:name="com.example.spit_hackathon_ecoquest.Fragments.EventFragment"
+        android:label="fragment_event"
+        tools:layout="@layout/fragment_event" />
 </navigation>

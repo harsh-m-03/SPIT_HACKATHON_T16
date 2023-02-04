@@ -1,22 +1,20 @@
 package com.example.spit_hackathon_ecoquest;
 
 import android.os.Bundle;
-import android.view.View;
 import android.view.Menu;
+import android.view.View;
 import android.view.WindowManager;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.navigation.NavigationView;
-
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spit_hackathon_ecoquest.databinding.ActivityUserPageBinding;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.Objects;
 
@@ -50,7 +48,7 @@ public class UserPage extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.profile, R.id.weekly_report, R.id.task, R.id.settings)
+                R.id.profile, R.id.events, R.id.weekly_report, R.id.task, R.id.settings)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_user_page);

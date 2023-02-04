@@ -10,6 +10,9 @@
 
 
     <color name="green">#00ab41</color>
+    <color name="brown">#964B00</color>
+    <color name="med_green">#1fd655</color>
+    <color name="light_green">#39e75f</color>
     <color name="grey">#423F3F</color>
     <color name="red">#FF0000</color>
 
