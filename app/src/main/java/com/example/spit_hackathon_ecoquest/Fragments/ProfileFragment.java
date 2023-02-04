@@ -12,12 +12,15 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.spit_hackathon_ecoquest.BottomSheets.UpdateProgressBottomSheet;
 import com.example.spit_hackathon_ecoquest.Models.Users;
 import com.example.spit_hackathon_ecoquest.Models.Waste;
 import com.example.spit_hackathon_ecoquest.Modules.OnPressUI;
 import com.example.spit_hackathon_ecoquest.Modules.SingleTapClick;
+import com.example.spit_hackathon_ecoquest.R;
 import com.example.spit_hackathon_ecoquest.databinding.FragmentProfileBinding;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -96,7 +99,8 @@ public class ProfileFragment extends Fragment {
                 }
                 return true;
             }
-        }); binding.updateProgress.setOnTouchListener(new View.OnTouchListener() {
+        });
+        binding.updateProgress.setOnTouchListener(new View.OnTouchListener() {
             @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -108,6 +112,23 @@ public class ProfileFragment extends Fragment {
                 return true;
             }
         });
+        binding.dailyTask.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                new OnPressUI().onPressUi(view, motionEvent);
+                if (gestureDetector.onTouchEvent(motionEvent)) {
+//                    TaskFragment fragment = new TaskFragment();
+//                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                    fragmentTransaction.replace(R.id.layout, fragment);
+//                    fragmentTransaction.addToBackStack(null);
+//                    fragmentTransaction.commit();
+                }
+                return true;
+            }
+        });
+
 
         database.getReference().child("Test/Waste").child(date).child(Objects.requireNonNull(auth.getUid())).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

@@ -44,5 +44,16 @@
     <string name="update_your_progress">Update your Progress</string>
     <string name="go">GO!</string>
     <string name="update">Update</string>
+    <string name="title_activity_task_proof">TaskProof</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="submit">Submit</string>
+    <string name="upload_image">Upload Image</string>
 
 </resources>
