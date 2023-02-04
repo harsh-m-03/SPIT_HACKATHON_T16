@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.spit_hackathon_ecoquest.BottomSheets.UpdateProgressBottomSheet;
 import com.example.spit_hackathon_ecoquest.Models.Users;
 import com.example.spit_hackathon_ecoquest.Models.Waste;
 import com.example.spit_hackathon_ecoquest.Modules.OnPressUI;
@@ -25,6 +26,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 public class ProfileFragment extends Fragment {
@@ -43,6 +46,8 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
         Initialization();
+        SimpleDateFormat firebaseDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String date = firebaseDateFormat.format(new Date());
 
         binding.dryWasteText.setOnTouchListener(new View.OnTouchListener() {
             @SuppressLint("ClickableViewAccessibility")
@@ -91,9 +96,20 @@ public class ProfileFragment extends Fragment {
                 }
                 return true;
             }
+        }); binding.updateProgress.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                new OnPressUI().onPressUi(view, motionEvent);
+                if (gestureDetector.onTouchEvent(motionEvent)) {
+                    UpdateProgressBottomSheet frag = new UpdateProgressBottomSheet();
+                    frag.show(getActivity().getSupportFragmentManager(), frag.getTag());
+                }
+                return true;
+            }
         });
 
-        database.getReference().child("Test/Waste").child(Objects.requireNonNull(auth.getUid())).addListenerForSingleValueEvent(new ValueEventListener() {
+        database.getReference().child("Test/Waste").child(date).child(Objects.requireNonNull(auth.getUid())).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Waste waste = snapshot.getValue(Waste.class);
