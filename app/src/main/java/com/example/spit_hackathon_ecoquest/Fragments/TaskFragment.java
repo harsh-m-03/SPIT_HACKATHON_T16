@@ -1,66 +1,70 @@
 package com.example.spit_hackathon_ecoquest.Fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
+import androidx.constraintlayout.helper.widget.Carousel;
 import androidx.fragment.app.Fragment;
 
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 
+import com.example.spit_hackathon_ecoquest.Adapters.EventAdapter;
+import com.example.spit_hackathon_ecoquest.Modules.SingleTapClick;
 import com.example.spit_hackathon_ecoquest.R;
+import com.example.spit_hackathon_ecoquest.databinding.FragmentProfileBinding;
+import com.example.spit_hackathon_ecoquest.databinding.FragmentTaskBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TaskFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class TaskFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public TaskFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TaskFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TaskFragment newInstance(String param1, String param2) {
-        TaskFragment fragment = new TaskFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    FragmentTaskBinding binding;
+    FirebaseAuth auth;
+    FirebaseDatabase database;
+    GestureDetector gestureDetector;
+    ProgressDialog progressDialog;
+    List<String> weekDays=new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_task, container, false);
+        binding = FragmentTaskBinding.inflate(inflater, container, false);
+
+        Initialization();
+
+        weekDays.add("Sunday");
+        weekDays.add("Monday");
+        weekDays.add("Tuesday");
+        weekDays.add("Wednesday");
+        weekDays.add("Thursday");
+        weekDays.add("Friday");
+        weekDays.add("Saturday");
+
+//        adapter = new Adapter(getContext(), weekDays);
+//        adapter.notifyDataSetChanged();
+//        binding.recyclerView.setAdapter(adapter);
+//        progressDialog.hide();
+
+
+        return binding.getRoot();
+    }
+
+    void Initialization() {
+
+        auth = FirebaseAuth.getInstance();
+
+        gestureDetector = new GestureDetector(getContext(), new SingleTapClick());
+
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Loading");
+
+        database = FirebaseDatabase.getInstance();
     }
 }
