@@ -27,7 +27,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -146,14 +149,41 @@ public class TaskProof extends AppCompatActivity {
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         progressDialog.dismiss();
                                                         if (task.isSuccessful()) {
-                                                            Intent intent=new Intent(TaskProof.this,UserPage.class);
+                                                            Intent intent = new Intent(TaskProof.this, UserPage.class);
                                                             startActivity(intent);
                                                             SharedPreferences sharedPreferences = TaskProof.this.getSharedPreferences("shared preferences", MODE_PRIVATE);
                                                             SharedPreferences.Editor editor = sharedPreferences.edit();
                                                             editor.putString(day, "false");
                                                             editor.commit();
+                                                            progressDialog.show();
+                                                            firebaseDatabase.getReference().child("Test/Users").child(auth.getUid()).
+                                                                    child("greenPoints").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                        @Override
+                                                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                            String user_greenPoint = snapshot.getValue(String.class);
+                                                                            int newPoints = (Integer.parseInt(user_greenPoint) + Integer.parseInt(green_points));
+                                                                            firebaseDatabase.getReference().child("Test/Users").child(auth.getUid()).
+                                                                                    child("greenPoints").setValue(String.valueOf(newPoints)).
+                                                                                    addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                        @Override
+                                                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                                                            progressDialog.dismiss();
+                                                                                            if (!task.isSuccessful())
+                                                                                                Toast.makeText(TaskProof.this, "Green Point Error: " +
+                                                                                                        task.getException().getMessage().toString(), Toast.LENGTH_SHORT).show();
+                                                                                            else{
+                                                                                                Toast.makeText(TaskProof.this, "Task completed and Green Points are updated", Toast.LENGTH_SHORT).show();
+                                                                                            }
+                                                                                        }
+                                                                                    });
+                                                                        }
 
-                                                            Toast.makeText(TaskProof.this, "Task Completed", Toast.LENGTH_SHORT).show();
+                                                                        @Override
+                                                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                                                        }
+                                                                    });
+
                                                         } else {
                                                             Toast.makeText(TaskProof.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
                                                         }

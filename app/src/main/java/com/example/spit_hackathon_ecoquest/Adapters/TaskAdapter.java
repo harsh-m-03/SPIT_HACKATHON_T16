@@ -57,8 +57,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                     SharedPreferences sharedPreferences = context.getSharedPreferences("shared preferences", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.commit();
-                    String sharedPreferencesValue = sharedPreferences.getString(task.getTask(), "true");
-
+                    String sharedPreferencesValue = sharedPreferences.getString(task.getDay(), "true");
                     if(sharedPreferencesValue.equals("true")) {
                         Intent intent = new Intent(context, TaskProof.class);
                         intent.putExtra("day", task.getDay());
