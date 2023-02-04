@@ -68,5 +68,7 @@
     <string name="log_out">Log out</string>
     <string name="buy">Buy</string>
     <string name="tap_the_item_to_buy">Tap the item to buy</string>
+    <string name="confirm">Confirm</string>
+    <string name="address">Address</string>
 
 </resources>

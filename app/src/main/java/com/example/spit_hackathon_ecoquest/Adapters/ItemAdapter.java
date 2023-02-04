@@ -1,6 +1,9 @@
 package com.example.spit_hackathon_ecoquest.Adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +14,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.spit_hackathon_ecoquest.BottomSheets.AddressGetterBottomSheet;
+import com.example.spit_hackathon_ecoquest.BottomSheets.OrganizeAnEventBottomSheet;
+import com.example.spit_hackathon_ecoquest.HaraBazarActivity;
 import com.example.spit_hackathon_ecoquest.Models.Item;
 import com.example.spit_hackathon_ecoquest.Modules.SingleTapClick;
 import com.example.spit_hackathon_ecoquest.R;
@@ -44,7 +50,39 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             Item item = testModelList.get(position);
             Picasso.get().load(item.getImage()).placeholder(R.drawable.dummy_image).into(holder.image);
             holder.name.setText(item.getName());
-            holder.price.setText("$ "+item.getPrice());
+            holder.price.setText("$ " + item.getPrice());
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+                    // Set the message show for the Alert time
+                    builder.setMessage("Once you confirm your order you won't be able to undo the order, also the green points won't be return in any circumstances. Do you wish to continue?");
+
+                    // Set Alert Title
+                    builder.setTitle("Alert !");
+
+                    builder.setCancelable(false);
+
+                    builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
+                        AddressGetterBottomSheet frag = new AddressGetterBottomSheet();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("name", item.getName());
+                        bundle.putString("price", item.getPrice());
+                        bundle.putString("id", item.getUid());
+                        frag.setArguments(bundle);
+                        frag.show(((HaraBazarActivity)context).getSupportFragmentManager(), frag.getTag());
+                    });
+
+                    builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
+                        dialog.cancel();
+                    });
+
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                }
+            });
         } else return;
     }
 
