@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.spit_hackathon_ecoquest.BottomSheets.OptionsForCleanArea;
 import com.example.spit_hackathon_ecoquest.BottomSheets.UpdateProgressBottomSheet;
 import com.example.spit_hackathon_ecoquest.InnovateActivity;
 import com.example.spit_hackathon_ecoquest.Models.Users;
@@ -136,6 +137,17 @@ public class ProfileFragment extends Fragment {
                 new OnPressUI().onPressUi(view, motionEvent);
                 if (gestureDetector.onTouchEvent(motionEvent)) {
 
+                }
+                return true;
+            }
+        });  binding.cleanMyArea.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                new OnPressUI().onPressUi(view, motionEvent);
+                if (gestureDetector.onTouchEvent(motionEvent)) {
+                    OptionsForCleanArea frag = new OptionsForCleanArea();
+                    frag.show(getActivity().getSupportFragmentManager(), frag.getTag());
                 }
                 return true;
             }
