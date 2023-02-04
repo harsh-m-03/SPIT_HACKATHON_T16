@@ -92,7 +92,7 @@ public class ActivitySignUp extends AppCompatActivity {
                                                     binding.loading.setVisibility(View.GONE);
                                                     if (task.isSuccessful()) {
                                                         Toast.makeText(ActivitySignUp.this, "Login successful", Toast.LENGTH_SHORT).show();
-                                                        Intent intent = new Intent(ActivitySignUp.this, MainActivity.class);
+                                                        Intent intent = new Intent(ActivitySignUp.this, UserPage.class);
                                                         startActivity(intent);
                                                     } else {
                                                         Snackbar snackbar = Snackbar.make(binding.layout, "Error: " + task.getException().getMessage(),

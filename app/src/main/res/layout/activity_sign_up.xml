@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:fontFamily="@font/roboto"
-        android:text="@string/create_an_account"
+        android:text="@string/quote"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"

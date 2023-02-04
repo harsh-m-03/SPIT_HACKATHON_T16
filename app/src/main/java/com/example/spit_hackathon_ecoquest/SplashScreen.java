@@ -1,15 +1,17 @@
 package com.example.spit_hackathon_ecoquest;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.Objects;
 
 public class SplashScreen extends AppCompatActivity {
-
+    FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,8 +26,14 @@ public class SplashScreen extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    Intent intent = new Intent(SplashScreen.this, ActivitySignUp.class);
-                    startActivity(intent);
+                    auth = FirebaseAuth.getInstance();
+                    if (auth.getCurrentUser() == null) {
+                        Intent intent = new Intent(SplashScreen.this, ActivitySignUp.class);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(SplashScreen.this, UserPage.class);
+                        startActivity(intent);
+                    }
                 }
             }
         };
