@@ -5,6 +5,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -13,13 +14,20 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.spit_hackathon_ecoquest.BottomSheets.OrganizeAnEventBottomSheet;
+import com.example.spit_hackathon_ecoquest.BottomSheets.QuizBottomSheet;
 import com.example.spit_hackathon_ecoquest.databinding.ActivityUserPageBinding;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
 public class UserPage extends AppCompatActivity {
 
+    FirebaseDatabase database;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityUserPageBinding binding;
 
@@ -29,7 +37,7 @@ public class UserPage extends AppCompatActivity {
 
         binding = ActivityUserPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        database = FirebaseDatabase.getInstance();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setSupportActionBar(binding.appBarUserPage.toolbar);
         Objects.requireNonNull(getSupportActionBar()).hide();
@@ -42,6 +50,23 @@ public class UserPage extends AppCompatActivity {
                 else binding.drawerLayout.closeDrawer(GravityCompat.END);
             }
         });
+
+        database.getReference().child("Test/ShowQuiz").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String isShow=snapshot.getValue(String.class);
+                if(isShow.equals("yes")){
+                    QuizBottomSheet frag = new QuizBottomSheet();
+                    frag.show(getSupportFragmentManager(), frag.getTag());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;

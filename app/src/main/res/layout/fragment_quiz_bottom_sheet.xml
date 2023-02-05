@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".BottomSheets.QuizBottomSheet">
+
+    <View
+        android:layout_width="140dp"
+        android:layout_height="5dp"
+        android:background="@color/green" />
+
+    <TextView
+        android:id="@+id/day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="@string/quiz"
+        android:textColor="@color/green"
+        android:textSize="35sp"
+        android:textStyle="bold" />
+
+    <View
+        android:id="@+id/bottomLine"
+        android:layout_width="70dp"
+        android:layout_height="5dp"
+        android:layout_below="@id/day"
+        android:layout_marginTop="2dp"
+        android:background="@color/green" />
+
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bottomLine"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/roboto"
+        android:text="Question"
+        android:textColor="@color/black"
+        android:textSize="26sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/question"
+        android:fontFamily="@font/roboto"
+        android:text="@string/green_points_awarded_5"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+
+    <TextView
+        android:id="@+id/option1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/note"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/roboto"
+        android:text="@string/option"
+        android:textColor="@color/black"
+        android:textSize="22sp" />
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_below="@id/option1"
+        android:layout_marginTop="2dp"
+        android:background="@color/grey" />
+
+    <TextView
+        android:id="@+id/option2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/option1"
+        android:fontFamily="@font/roboto"
+        android:text="@string/option"
+        android:textColor="@color/black"
+        android:textSize="22sp" />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_below="@id/option2"
+        android:layout_marginTop="2dp"
+        android:background="@color/grey" />
+
+    <TextView
+        android:id="@+id/option3"
+        android:layout_width="match_parent"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/option2"
+        android:fontFamily="@font/roboto"
+        android:text="@string/option"
+        android:textSize="22sp" />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_below="@id/option3"
+        android:layout_marginTop="2dp"
+        android:background="@color/grey" />
+
+    <TextView
+        android:id="@+id/option4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/option3"
+        android:fontFamily="@font/roboto"
+        android:text="@string/option"
+        android:textColor="@color/black"
+        android:textSize="22sp" />
+
+
+    <TextView
+        android:id="@+id/correctOption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/option3"
+        android:fontFamily="@font/roboto"
+        android:text="@string/option"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
+
+</RelativeLayout>
