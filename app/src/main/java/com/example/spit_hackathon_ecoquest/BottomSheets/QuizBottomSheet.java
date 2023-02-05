@@ -45,7 +45,7 @@ public class QuizBottomSheet extends BottomSheetDialogFragment {
         binding.option1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+
                 checkOption(binding.option1.getText().toString());
             }
         });
