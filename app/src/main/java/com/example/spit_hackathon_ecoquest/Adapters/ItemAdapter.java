@@ -10,22 +10,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.spit_hackathon_ecoquest.BottomSheets.AddressGetterBottomSheet;
-import com.example.spit_hackathon_ecoquest.BottomSheets.OrganizeAnEventBottomSheet;
 import com.example.spit_hackathon_ecoquest.HaraBazarActivity;
 import com.example.spit_hackathon_ecoquest.Models.Item;
 import com.example.spit_hackathon_ecoquest.Modules.SingleTapClick;
 import com.example.spit_hackathon_ecoquest.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
-
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    FirebaseAuth auth = FirebaseAuth.getInstance();
     Context context;
     List<Item> testModelList;
 
@@ -50,11 +56,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             Item item = testModelList.get(position);
             Picasso.get().load(item.getImage()).placeholder(R.drawable.dummy_image).into(holder.image);
             holder.name.setText(item.getName());
-            holder.price.setText("$ " + item.getPrice());
+            holder.price.setText(item.getPrice());
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
                     // Set the message show for the Alert time
@@ -66,14 +73,36 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                     builder.setCancelable(false);
 
                     builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
-                        AddressGetterBottomSheet frag = new AddressGetterBottomSheet();
-                        Bundle bundle = new Bundle();
-                        bundle.putString("name", item.getName());
-                        bundle.putString("price", item.getPrice());
-                        bundle.putString("id", item.getUid());
-                        frag.setArguments(bundle);
-                        frag.show(((HaraBazarActivity)context).getSupportFragmentManager(), frag.getTag());
-                    });
+                        database.getReference().child("Test/Users").child(auth.getUid()).child("greenPoints")
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        String userCoins = snapshot.getValue(String.class);
+                                        int userCointsInInt = Integer.parseInt(userCoins);
+                                        int priceOfItemInInt = Integer.parseInt(item.getPrice());
+
+                                        if (priceOfItemInInt > userCointsInInt) {
+                                            Toast.makeText(context, "Not enough coins", Toast.LENGTH_SHORT).show();
+                                            dialog.cancel();
+
+                                        }else{
+                                            AddressGetterBottomSheet frag = new AddressGetterBottomSheet();
+                                            Bundle bundle = new Bundle();
+                                            bundle.putString("name", item.getName());
+                                            bundle.putString("price", item.getPrice());
+                                            bundle.putString("id", item.getUid());
+                                            frag.setArguments(bundle);
+                                            frag.show(((HaraBazarActivity) context).getSupportFragmentManager(), frag.getTag());
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                      });
 
                     builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
                         dialog.cancel();

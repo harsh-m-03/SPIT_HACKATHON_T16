@@ -20,7 +20,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class AddressGetterBottomSheet extends BottomSheetDialogFragment {
     FragmentAddressGetterBottomSheetBinding binding;
@@ -67,7 +70,27 @@ public class AddressGetterBottomSheet extends BottomSheetDialogFragment {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         progressDialog.dismiss();
                                         if (task.isSuccessful()) {
+
+                                            database.getReference().child("Test/Users").child(auth.getUid()).child("greenPoints")
+                                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                            int priceInInt = Integer.parseInt(price);
+                                                            int userCoints =Integer.parseInt(snapshot.getValue(String.class));
+
+                                                            int ans=userCoints-priceInInt;
+
+                                                            database.getReference().child("Test/Users").child(auth.getUid()).child("greenPoints")
+                                                                    .setValue(String.valueOf(ans));
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                                        }
+                                                    });
                                             Toast.makeText(getContext(), "Order Placed", Toast.LENGTH_SHORT).show();
+                                            AddressGetterBottomSheet.this.dismiss();
                                         } else {
                                             Toast.makeText(getContext(), task.getException().toString(), Toast.LENGTH_SHORT).show();
                                         }
