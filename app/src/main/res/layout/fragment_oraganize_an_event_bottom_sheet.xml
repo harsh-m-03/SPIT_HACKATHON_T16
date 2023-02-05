@@ -33,7 +33,7 @@
         app:hintTextColor="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:startIconDrawable="@drawable/ic_bin"
+        app:startIconDrawable="@drawable/ic_title"
         app:startIconTint="@color/grey">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -60,7 +60,7 @@
         app:hintTextColor="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:startIconDrawable="@drawable/ic_bin"
+        app:startIconDrawable="@drawable/ic_location"
         app:startIconTint="@color/grey">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -87,7 +87,7 @@
         app:hintTextColor="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:startIconDrawable="@drawable/ic_bin"
+        app:startIconDrawable="@drawable/ic_clock"
         app:startIconTint="@color/grey">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -114,7 +114,7 @@
         app:hintTextColor="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:startIconDrawable="@drawable/ic_bin"
+        app:startIconDrawable="@drawable/ic_date"
         app:startIconTint="@color/grey">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -141,7 +141,7 @@
         app:hintTextColor="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:startIconDrawable="@drawable/ic_bin"
+        app:startIconDrawable="@drawable/ic_leaf"
         app:startIconTint="@color/grey">
 
         <com.google.android.material.textfield.TextInputEditText

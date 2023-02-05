@@ -42,6 +42,7 @@ public class HaraBazarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Initialization();
 
+        progressDialog.show();
         firebaseDatabase.getReference().child("Test/Item").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

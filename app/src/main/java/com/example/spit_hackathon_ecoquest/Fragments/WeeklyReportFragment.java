@@ -44,6 +44,7 @@ public class WeeklyReportFragment extends Fragment {
         binding = FragmentWeeklyReportBinding.inflate(inflater, container, false);
         Initialization();
 
+        progressDialog.show();
         database.getReference().child("Test/Orders").child(auth.getUid())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
